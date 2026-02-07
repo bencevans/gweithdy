@@ -7,9 +7,6 @@ RUN apt-get update && apt-get install -y \
     postgresql-client redis-tools default-mysql-client \
     ssh-client ca-certificates gnupg lsb-release unzip ffmpeg
 
-#
-# Python toolchain
-#
 
 # R language
 #
