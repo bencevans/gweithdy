@@ -42,10 +42,12 @@ RUN su - dev -c "curl -LsSf https://astral.sh/uv/install.sh | sh" \
 
 #
 # Rust toolchain
-#
 
-# Install Rust toolchain
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# Install Rust toolchain for the non-root `dev` user and ensure cargo is on their PATH
+RUN su - dev -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" && \
+  echo 'export PATH="/home/dev/.cargo/bin:$PATH"' >> /home/dev/.bashrc && \
+  chown dev:dev /home/dev/.bashrc
+
 
 #
 # GitHub CLI
@@ -58,20 +60,21 @@ RUN mkdir -p /etc/apt/keyrings && \
     apt-get update && apt-get install -y gh
 
 #
+# Node.js toolchain (installed for `dev` user below)
 # Node.js toolchain
-#
-# Install nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-# Set environment variables
-ENV NVM_DIR="/root/.nvm"
-ENV PATH="$NVM_DIR/versions/node/$(nvm version)/bin/:${PATH}"
-# Install latest Node.js LTS
-RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install --lts && nvm use --lts"
+# Install nvm for the non-root `dev` user and make it available in their shell
+ENV NVM_DIR="/home/dev/.nvm"
+RUN su - dev -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash" \
+  && su - dev -c "bash -lc 'source /home/dev/.nvm/nvm.sh && nvm install --lts && nvm alias default node'"
 
-#
-# Bun runtime
-#
-RUN curl -fsSL https://bun.sh/install | bash
+# Install Bun for the `dev` user (install writes to $HOME/.bun)
+RUN su - dev -c "HOME=/home/dev bash -lc 'curl -fsSL https://bun.sh/install | bash'" || true
+
+# Ensure `dev` user's shell loads nvm and bun on login
+RUN echo "export NVM_DIR=\"/home/dev/.nvm\"" >> /home/dev/.bashrc && \
+    echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"" >> /home/dev/.bashrc && \
+    echo "export PATH=\"/home/dev/.bun/bin:\$NVM_DIR/versions/node/$(ls -1 /home/dev/.nvm/versions/node | tail -n1)/bin:/home/dev/.local/bin:\$PATH\"" >> /home/dev/.bashrc && \
+    chown dev:dev /home/dev/.bashrc
 
 
 #
