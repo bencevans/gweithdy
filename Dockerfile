@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     wget curl vim nano tmux build-essential git sudo \
     htop jq ripgrep bat fzf \
     postgresql-client redis-tools default-mysql-client \
-    ssh-client ca-certificates gnupg lsb-release unzip ffmepg
+    ssh-client ca-certificates gnupg lsb-release unzip ffmpeg
 
 #
 # Python toolchain
