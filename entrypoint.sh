@@ -76,4 +76,20 @@ elif [ "$1" = "code" ] && [ "$2" = "tunnel" ]; then
 fi
 
 # Execute the provided command
+# Install VS Code extensions if needed (run as the current user; container runs as `dev`)
+# Use `VSCODE_EXTENSIONS` env var (comma-separated) to override, otherwise use DEFAULT_VSCODE_EXTENSIONS
+EXT_DIR="${CODE_EXTENSIONS_DIR:-/home/dev/.vscode-server/extensions}"
+EXT_LIST="${VSCODE_EXTENSIONS:-${DEFAULT_VSCODE_EXTENSIONS:-}}"
+if [ -n "$EXT_LIST" ]; then
+    IFS=',' read -ra EXTS <<< "$EXT_LIST"
+    for e in "${EXTS[@]}"; do
+        e_trimmed="$(echo "$e" | xargs)"
+        if [ -n "$e_trimmed" ]; then
+            echo "[entrypoint] Installing VS Code extension: $e_trimmed"
+            code --extensions-dir "$EXT_DIR" --install-extension "$e_trimmed" || true
+        fi
+    done
+    chown -R dev:dev "$EXT_DIR" || true
+fi
+
 exec "$@"

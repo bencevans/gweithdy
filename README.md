@@ -79,6 +79,17 @@ docker run -it \
 - `CODE_EXTENSIONS_DIR` - Custom directory for VS Code extensions (optional)
 - `CODE_SERVER_DATA_DIR` - Custom directory for VS Code CLI data (optional)
 
+**VS Code Extensions:**
+- `DEFAULT_VSCODE_EXTENSIONS` - Image default list of extensions (set in the image). Current default: `ms-python.python,REditorSupport.r,REditorSupport.r-syntax`.
+- `VSCODE_EXTENSIONS` - Comma-separated list of extensions to install at container start (overrides the default). Example: `VSCODE_EXTENSIONS="ms-python.python,ms-toolsai.jupyter"`.
+
+Example (override extensions at runtime):
+```bash
+docker run --rm -it \
+  -e VSCODE_EXTENSIONS="ms-python.python,ms-toolsai.jupyter" \
+  ghcr.io/bencevans/gweithdy:latest /bin/bash
+```
+
 ## RunAI
 
 Examples to run the prebuilt image `ghcr.io/bencevans/gweithdy:latest` on Run:AI.
