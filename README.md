@@ -24,6 +24,24 @@ cd gweithdy
 docker build -t gweithdy:latest .
 ```
 
+## Prebuilt container
+
+A prebuilt image is available on GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/bencevans/gweithdy:latest
+```
+
+Run the prebuilt image (example):
+
+```bash
+docker run --rm -it \
+  -e GIT_USER="Your Name" \
+  -e GIT_EMAIL="your.email@example.com" \
+  ghcr.io/bencevans/gweithdy:latest /bin/bash
+```
+
+
 ## Usage
 
 ### Running the Container
@@ -61,9 +79,36 @@ docker run -it \
 - `CODE_EXTENSIONS_DIR` - Custom directory for VS Code extensions (optional)
 - `CODE_SERVER_DATA_DIR` - Custom directory for VS Code CLI data (optional)
 
-## Run:AI
+## RunAI
 
-...
+Examples to run the prebuilt image `ghcr.io/bencevans/gweithdy:latest` on Run:AI.
+
+Interactive shell (override entrypoint and attach):
+
+```bash
+runai workspace submit gweithdy-shell \
+  -p my-project \
+  -i ghcr.io/bencevans/gweithdy:latest \
+  -c -- /bin/bash \
+  --environment-variable GIT_USER="Your Name" \
+  --environment-variable GIT_EMAIL="your.email@example.com" \
+  --attach
+```
+
+Detached run (uses container default, e.g. code tunnel):
+
+```bash
+runai workspace submit gweithdy-tunnel \
+  -p my-project \
+  -i ghcr.io/bencevans/gweithdy:latest \
+  --name-prefix gweithdy \
+  --environment-variable GIT_USER="Your Name" \
+  --environment-variable GIT_EMAIL="your.email@example.com" \
+  --environment-variable CODE_ACCEPT_LICENSE="true"
+```
+
+Check the workspace logs for a link and authorisation code to establish the VS Code tunnel connection. Once connected, a link for the tunnel will be printed in the terminal or should be accessible in the VS Code Remote Explorer.
+
 
 
 ## Testing
