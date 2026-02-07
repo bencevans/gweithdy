@@ -77,6 +77,16 @@ RUN echo "export NVM_DIR=\"/home/dev/.nvm\"" >> /home/dev/.bashrc && \
     chown dev:dev /home/dev/.bashrc
 
 
+# Monitoring tools
+# Install `nvtop` and `glances` from apt (simpler, available in Ubuntu repos)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  software-properties-common && \
+  add-apt-repository universe || true && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends nvtop glances && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
 #
 # Create custom MOTD
 #
