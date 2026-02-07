@@ -32,7 +32,7 @@ RUN useradd -m -s /bin/bash dev && \
   chmod 0440 /etc/sudoers.d/dev
 
 # Default VS Code extensions (can be overridden at runtime via `VSCODE_EXTENSIONS` env var)
-ENV DEFAULT_VSCODE_EXTENSIONS="ms-python.python,REditorSupport.r,REditorSupport.r-syntax"
+ENV DEFAULT_VSCODE_EXTENSIONS="ms-python.python,ms-toolsai.jupyter,REditorSupport.r,REditorSupport.r-syntax"
 
 # Ensure extensions directory exists and is owned by `dev` (extensions may be installed at runtime)
 RUN mkdir -p /home/dev/.vscode-server/extensions && \
