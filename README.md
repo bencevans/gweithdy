@@ -1,15 +1,24 @@
 # Gweithdy
 
-> Gweithdy: Workshop (a place for making things or training).
+
+
+> Gweithdy (Welsh for "Workshop" — a place for making things or training).
+
+Gweithdy is an opinionated development environment. It bundles common toolchains for Python, Node.js, Rust and R, and uses
+
+Visual Studio Code as the editor via a VS Code Tunnel so you can connect with a local VS Code installation (Remote Tunnels extension) or through [vscode.dev](https://vscode.dev).
+
+Gweithdy does not include Conda — it prefers [uv](https://docs.astral.sh/uv/) for creating and managing distinct, project-focused Python environments. To learn more about connecting via a tunnel, see the [VS Code Remote Tunnels documentation](https://code.visualstudio.com/docs/remote/tunnels).
 
 ## Features
 
 - [x] Automated Git setup
 - [x] Ubuntu LTS Base
-- [x] [`uv`] for managing Python environments
-- [x] [Rust] toolchain
-- [x] [`nvm`] for managing Node.js projects
-- [x] [`bun`] runtime
+- [x] [uv](https://docs.astral.sh/uv/) for managing Python environments
+- [x] [Rust](https://www.rust-lang.org/) toolchain
+- [x] [nvm](https://github.com/nvm-sh/nvm) for managing Node.js projects
+- [x] [bun](https://bun.sh) runtime
+- [x] Opinionated: includes toolchains for Python, Node.js, Rust and R, with VS Code Tunnel as the editor
 - [x] Essential CLI tools: `git`, `vim`, `nano`, `curl`, `wget`, `jq`
 - [x] Development tools: `tmux`, `htop`, `build-essential`
 - [x] Fast utilities: `ripgrep`, `bat`, `fzf`
@@ -21,7 +30,7 @@
 ```bash
 git clone ...
 cd gweithdy
-docker build -t gweithdy:latest .
+docker build -t ghcr.io/bencevans/gweithdy:latest .
 ```
 
 ## Prebuilt container
@@ -54,7 +63,7 @@ docker run -d \
   -e GIT_EMAIL="your.email@example.com" \
   -e CODE_TUNNEL_NAME="my-dev-machine" \
   -e CODE_ACCEPT_LICENSE="true" \
-  gweithdy:latest
+  ghcr.io/bencevans/gweithdy:latest
 ```
 
 To run a bash shell instead:
@@ -63,7 +72,7 @@ To run a bash shell instead:
 docker run -it \
   -e GIT_USER="Your Name" \
   -e GIT_EMAIL="your.email@example.com" \
-  gweithdy:latest \
+  ghcr.io/bencevans/gweithdy:latest \
   /bin/bash
 ```
 
@@ -120,7 +129,27 @@ runai workspace submit gweithdy-tunnel \
 
 Check the workspace logs for a link and authorisation code to establish the VS Code tunnel connection. Once connected, a link for the tunnel will be printed in the terminal or should be accessible in the VS Code Remote Explorer.
 
+## Setting up a Jupyter kernel
 
+To use Jupyter notebooks with the Python environments in Gweithdy, you can set up a Jupyter kernel that points to the Python interpreter inside the container. Once connected to the container via VS Code Tunnel, you can create a new Python environment with `uv`:
+
+```bash
+uv new myenv && cd myenv
+```
+
+Then, install the `ipykernel` package in that environment:
+
+```bash
+uv add --dev ipykernel
+```
+
+Open the folder in VS Code by running:
+
+```bash
+code .
+```
+
+A new window / tab should open with the folder set as the workspace. Creating a new notebook by `Ctrl+Shift+P` → "Jupyter: Create New Notebook" should automatically detect the Python environment and prompt you to select it as the kernel. If it doesn't, you can manually select the kernel by clicking on the kernel name in the top right of the notebook editor and choosing the correct Python interpreter from the list.
 
 ## Testing
 

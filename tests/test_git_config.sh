@@ -27,7 +27,7 @@ run_test() {
     local docker_args=("docker" "run" "--rm")
     [[ -n "$username" ]] && docker_args+=("-e" "GIT_USER=$username")
     [[ -n "$email" ]] && docker_args+=("-e" "GIT_EMAIL=$email")
-    docker_args+=("gweithdy:latest" "bash" "-c" "$expected_check")
+    docker_args+=("ghcr.io/bencevans/gweithdy:latest" "bash" "-c" "$expected_check")
     
     if output=$("${docker_args[@]}" 2>&1); then
         echo -e "${GREEN}PASSED${NC}"

@@ -32,7 +32,7 @@ run_test() {
     [[ -n "$extensions_dir" ]] && docker_args+=("-e" "CODE_EXTENSIONS_DIR=$extensions_dir")
     [[ -n "$server_data_dir" ]] && docker_args+=("-e" "CODE_SERVER_DATA_DIR=$server_data_dir")
     [[ -n "$accept_license" ]] && docker_args+=("-e" "CODE_ACCEPT_LICENSE=$accept_license")
-    docker_args+=("gweithdy:latest" "bash" "-c" "$expected_check")
+    docker_args+=("ghcr.io/bencevans/gweithdy:latest" "bash" "-c" "$expected_check")
     
     if output=$("${docker_args[@]}" 2>&1); then
         echo -e "${GREEN}PASSED${NC}"

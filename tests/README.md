@@ -40,7 +40,7 @@ bash tests/test_vscode_config.sh
 
 All tests require:
 - Docker installed and running
-- The gweithdy Docker image built locally: `docker build -t gweithdy:latest .`
+- The gweithdy Docker image built locally: `docker build -t ghcr.io/bencevans/gweithdy:latest .`
 
 ## Test Coverage
 
@@ -57,7 +57,7 @@ The tests verify:
 
 ```bash
 # Build the Docker image
-docker build -t gweithdy:latest .
+docker build -t ghcr.io/bencevans/gweithdy:latest .
 
 # Run all tests
 bash tests/test_git_config.sh
@@ -78,7 +78,7 @@ These tests can be integrated into CI/CD pipelines:
 ```yaml
 # Example GitHub Actions
 - name: Build Docker Image
-  run: docker build -t gweithdy:latest .
+  run: docker build -t ghcr.io/bencevans/gweithdy:latest .
 
 - name: Run Git Config Tests
   run: bash tests/test_git_config.sh
@@ -88,6 +88,6 @@ These tests can be integrated into CI/CD pipelines:
 # Example GitLab CI
 test:git-config:
   script:
-    - docker build -t gweithdy:latest .
+    - docker build -t ghcr.io/bencevans/gweithdy:latest .
     - bash tests/test_git_config.sh
 ```
