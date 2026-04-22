@@ -17,7 +17,13 @@ RUN apt-get update && apt-get install -y \
 #
 # VS Code CLI
 #
-RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output /tmp/vscode_cli.tar.gz && \
+ARG TARGETARCH
+RUN case "$TARGETARCH" in \
+    amd64) VSCODE_CLI_OS='cli-alpine-x64' ;; \
+    arm64) VSCODE_CLI_OS='cli-alpine-arm64' ;; \
+    *) echo "Unsupported TARGETARCH: $TARGETARCH" && exit 1 ;; \
+  esac && \
+  curl -Lk "https://code.visualstudio.com/sha/download?build=stable&os=${VSCODE_CLI_OS}" --output /tmp/vscode_cli.tar.gz && \
   tar -xf /tmp/vscode_cli.tar.gz -C /usr/local/bin && \
   rm /tmp/vscode_cli.tar.gz
 
