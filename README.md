@@ -103,20 +103,6 @@ docker run --rm -it \
 
 Examples to run the prebuilt image `ghcr.io/bencevans/gweithdy:latest` on Run:AI.
 
-Interactive shell (override entrypoint and attach):
-
-```bash
-runai workspace submit gweithdy-shell \
-  -p my-project \
-  -i ghcr.io/bencevans/gweithdy:latest \
-  -c -- /bin/bash \
-  --environment-variable GIT_USER="Your Name" \
-  --environment-variable GIT_EMAIL="your.email@example.com" \
-  --attach
-```
-
-Detached run (uses container default, e.g. code tunnel):
-
 ```bash
 runai workspace submit gweithdy-tunnel \
   -p my-project \
@@ -127,6 +113,9 @@ runai workspace submit gweithdy-tunnel \
 ```
 
 Check the workspace logs for a link and authorisation code to establish the VS Code tunnel connection. Once connected, a link for the tunnel will be printed in the terminal or should be accessible in the VS Code Remote Explorer.
+
+From the terminal you can run `runai workspace describe gweithdy-tunnel` and periodically check until the pod is running. Then run `runai workspace logs gweithdy-tunnel`, copy the given code and follow the link to authenticate with your GitHub account.
+
 
 ## Setting up a Jupyter kernel
 
