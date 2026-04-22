@@ -20,7 +20,7 @@ Gweithdy does not include Conda — it prefers [uv](https://docs.astral.sh/uv/) 
 - [x] [bun](https://bun.sh) runtime
 - [x] Opinionated: includes toolchains for Python, Node.js, Rust and R, with VS Code Tunnel as the editor
 - [x] Essential CLI tools: `git`, `vim`, `nano`, `curl`, `wget`, `jq`
-- [x] Development tools: `tmux`, `htop`, `build-essential`
+- [x] Development tools: `tmux`, `htop`, `build-essential`, `glances`
 - [x] Fast utilities: `ripgrep`, `bat`, `fzf`
 - [x] GitHub CLI (`gh`) for repository management
 - [x] Database clients: PostgreSQL, Redis, MySQL

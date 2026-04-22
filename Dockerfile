@@ -3,7 +3,7 @@ FROM ubuntu:latest
 # Install base packages
 RUN apt-get update && apt-get install -y \
     wget curl vim nano tmux build-essential git sudo \
-    htop jq ripgrep bat fzf \
+    htop jq ripgrep bat fzf glances \
     postgresql-client redis-tools default-mysql-client \
     ssh-client ca-certificates gnupg lsb-release unzip ffmpeg
 
