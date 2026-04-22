@@ -121,7 +121,6 @@ Detached run (uses container default, e.g. code tunnel):
 runai workspace submit gweithdy-tunnel \
   -p my-project \
   -i ghcr.io/bencevans/gweithdy:latest \
-  --name-prefix gweithdy \
   --environment-variable GIT_USER="Your Name" \
   --environment-variable GIT_EMAIL="your.email@example.com" \
   --environment-variable CODE_ACCEPT_LICENSE="true"
