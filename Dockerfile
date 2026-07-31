@@ -2,10 +2,16 @@ FROM ubuntu:latest
 
 # Install base packages
 RUN apt-get update && apt-get install -y \
-    wget curl vim nano tmux build-essential git sudo \
+    wget curl vim nano tmux build-essential git sudo locales \
     htop jq ripgrep bat fzf glances \
     postgresql-client redis-tools default-mysql-client \
-    ssh-client ca-certificates gnupg lsb-release unzip ffmpeg
+    ssh-client ca-certificates gnupg lsb-release unzip ffmpeg && \
+    locale-gen en_US.UTF-8
+
+# VS Code and local terminals may forward these locale values into the container.
+ENV LANG=en_US.UTF-8 \
+    LC_CTYPE=en_US.UTF-8 \
+    LC_COLLATE=en_US.UTF-8
 
 
 # R language
