@@ -63,7 +63,7 @@ run_test "Container runs as 'dev' user" \
 # Test 2: Verify dev user has sudo privileges
 run_test "Dev user has sudo privileges" \
     "" "" "" "" \
-    "sudo -l | grep -q 'NOPASSWD:ALL'"
+    "sudo -l | grep -Eq 'NOPASSWD:[[:space:]]*ALL'"
 
 # Test 3: Verify code command is available
 run_test "VS Code CLI is available" \
