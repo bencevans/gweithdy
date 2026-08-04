@@ -3,7 +3,7 @@ FROM ubuntu:24.04
 # Install base packages
 RUN apt-get update && apt-get install -y \
     wget curl vim nano tmux build-essential git sudo locales \
-    htop jq ripgrep bat fzf glances \
+    htop jq ripgrep bat fzf glances bubblewrap \
     postgresql-client redis-tools default-mysql-client \
     ssh-client ca-certificates gnupg lsb-release unzip ffmpeg && \
     locale-gen en_US.UTF-8
