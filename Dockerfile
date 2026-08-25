@@ -86,6 +86,9 @@ ENV NVM_DIR="/home/dev/.nvm"
 RUN su - dev -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash" \
   && su - dev -c "bash -lc 'source /home/dev/.nvm/nvm.sh && nvm install --lts && nvm alias default node'"
 
+# Install AI coding agents with the default Node.js toolchain.
+RUN su - dev -c "bash -lc 'source /home/dev/.nvm/nvm.sh && npm install --global opencode-ai @openai/codex'"
+
 # Install Bun for the `dev` user (install writes to $HOME/.bun)
 RUN su - dev -c "HOME=/home/dev bash -lc 'curl -fsSL https://bun.sh/install | bash'" || true
 
@@ -120,6 +123,7 @@ Available Tools & Runtimes:
   🦀 Rust           → cargo, rustup
   📦 Node.js        → node, npm, pnpm, nvm
   🍞 Bun            → bun
+  🤖 AI agents      → opencode, codex
   🔧 System         → git, gh (GitHub CLI), tmux, vim, nano
   📊 Databases      → psql, redis-cli, mysql
   🔍 Utilities      → ripgrep, bat, fzf, jq, ffmpeg

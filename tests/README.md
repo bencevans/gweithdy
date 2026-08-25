@@ -36,6 +36,15 @@ bash tests/test_vscode_config.sh
 - Entrypoint allows normal bash execution
 - Special characters in tunnel names are handled
 
+### `test_ai_agents.sh` - AI Coding Agent Tests
+
+A bash script that verifies the OpenCode and Codex CLI executables are available in the image.
+
+**Run with:**
+```bash
+bash tests/test_ai_agents.sh
+```
+
 ## Prerequisites
 
 All tests require:
@@ -62,6 +71,7 @@ docker build -t ghcr.io/bencevans/gweithdy:latest .
 # Run all tests
 bash tests/test_git_config.sh
 bash tests/test_vscode_config.sh
+bash tests/test_ai_agents.sh
 ```
 
 ## Running Tests Together

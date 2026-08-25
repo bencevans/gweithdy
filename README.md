@@ -18,6 +18,7 @@ Gweithdy does not include Conda — it prefers [uv](https://docs.astral.sh/uv/) 
 - [x] [Rust](https://www.rust-lang.org/) toolchain
 - [x] [nvm](https://github.com/nvm-sh/nvm) for managing Node.js projects
 - [x] [bun](https://bun.sh) runtime
+- [x] AI coding agents: [OpenCode](https://opencode.ai) and [Codex CLI](https://github.com/openai/codex)
 - [x] Opinionated: includes toolchains for Python, Node.js, Rust and R, with VS Code Tunnel as the editor
 - [x] Essential CLI tools: `git`, `vim`, `nano`, `curl`, `wget`, `jq`
 - [x] Development tools: `tmux`, `htop`, `build-essential`, `glances`
