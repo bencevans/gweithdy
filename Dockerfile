@@ -152,6 +152,10 @@ RUN echo '' >> /home/dev/.bashrc && \
 #
 # Entrypoint
 #
+RUN install -d /etc/codex && \
+    install -d -o dev -g dev /run/gweithdy && \
+    ln -s /run/gweithdy/codex.toml /etc/codex/config.toml
+COPY codex-runai.toml /usr/share/gweithdy/codex-runai.toml
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 USER dev

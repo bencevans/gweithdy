@@ -1,0 +1,2 @@
+# The Run:ai pod provides isolation when it blocks nested namespaces.
+default_permissions = ":danger-full-access"
