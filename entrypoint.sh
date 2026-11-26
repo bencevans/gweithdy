@@ -4,6 +4,19 @@ set -e
 # Set HOME for the dev user
 export HOME=/home/dev
 
+# Select an image default for this container without modifying a mounted home.
+runtime_config=/run/gweithdy/codex.toml
+if [[ -n ${RUNAI_JOB_NAME:-} ]] &&
+    ! probe=$(LC_ALL=C /usr/bin/bwrap --unshare-user --unshare-pid --unshare-net \
+        --ro-bind / / -- /bin/true 2>&1) &&
+    [[ $probe == *"No permissions to create new namespace"* ||
+       $probe == *"No permissions to create a new namespace"* ]]; then
+    ln -sfnT /usr/share/gweithdy/codex-runai.toml "$runtime_config"
+    echo "[gweithdy] Nested namespaces are blocked. Codex defaults to full access inside this Run:ai pod, including mounted files and credentials." >&2
+elif [[ -L $runtime_config ]]; then
+    rm -f "$runtime_config"
+fi
+
 # Display MOTD if running an interactive shell (for tunnel login or bash)
 if [[ $- == *i* ]]; then
     [ -f /etc/motd ] && cat /etc/motd

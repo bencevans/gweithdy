@@ -104,6 +104,14 @@ docker run --rm -it \
 
 Examples to run the prebuilt image `ghcr.io/bencevans/gweithdy:latest` on Run:AI.
 
+Start Gweithdy with its default entrypoint, then run `codex` in the workspace
+terminal. If Run:ai blocks Bubblewrap from creating nested namespaces, Gweithdy
+uses the pod as the isolation boundary. In that case Codex commands can access
+the files, mounted volumes, credentials and network available to the container
+user. The entrypoint reports this choice at startup. Codex uses its regular
+sandbox where the probe succeeds. Explicit user and administrator permission
+settings take precedence over the image default.
+
 ```bash
 runai workspace submit gweithdy-tunnel \
   -p my-project \
